@@ -1,6 +1,6 @@
 Http:
-  host: "127.0.0.1"
-  port: 8080
+  host: "0.0.0.0"
+  port: 7890
   endpoint: "/legit"
   sleep: 1
   userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/102.0"

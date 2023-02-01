@@ -1,0 +1,23 @@
+# Commands to start on workspace startup
+tasks:
+  - name: Local Build Docker
+    before: sudo apt-get install -y httpie
+    init: |
+      env GOOS=linux GOARCH=amd64 go build -o KittyStagerLinux64
+      chmod +x ./KittyStagerLinux64
+    command: |
+      ./KittyStagerLinux64
+  # - name: Remote Pull Docker
+  #   init: |
+  #     sudo docker pull          public.ecr.aws/w3s2d0z8/`basename $(pwd)`:main
+  #     docker tag                public.ecr.aws/w3s2d0z8/`basename $(pwd)`:main    remote_docker:latest
+  #     sudo docker run -d --name remote_docker -p 9000:8080 remote_docker:latest
+  #   command: |
+  #     sudo docker restart remote_docker &> /dev/null
+  #     http  POST  "http://127.0.0.1:9000/2015-03-31/functions/function/invocations"  browser="webkit" device="random" run="await page.goto('http://whatsmyuseragent.org/',wait_until='commit');result=await page.content()"
+  #     docker logs --since=2m remote_docker
+# # Ports to expose on workspace startup
+ports:
+  - port: 7890
+    onOpen: notify
+    name: KittyStager
