@@ -1,0 +1,17 @@
+name: gobuild
+on: workflow_dispatch
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: download
+        run: |
+          env GOOS=windows GOARCH=amd64 go build -o release/KittyStager64.exe
+          env GOOS=linux GOARCH=amd64 go build -o release/KittyStagerLinux64
+          env GOOS=darwin GOARCH=arm64 go build -o release/KittyStagerMacArm64
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dl-artifact
+          path: release/ 
